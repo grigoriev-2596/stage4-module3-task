@@ -1,0 +1,19 @@
+spring:
+  flyway:
+    baseline-on-migrate: true
+    baseline-version: 0
+    locations: classpath:/db/migration,classpath:/db/testdata
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/mjc_school_test
+    username: postgres
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher

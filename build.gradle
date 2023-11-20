@@ -1,0 +1,55 @@
+plugins {
+    id 'java-base'
+    id 'java'
+    id "org.sonarqube" version "3.5.0.2730"
+}
+
+wrapper {
+    gradleVersion = gradlewVersion
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'jacoco'
+    group = 'com.mjc.school'
+
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+        testImplementation "com.tngtech.archunit:archunit-junit5:$archUnitVersion"
+        compileOnly "org.projectlombok:lombok:$lombokVersion"
+        annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    }
+    test {
+        useJUnitPlatform()
+        finalizedBy jacocoTestReport
+    }
+
+    tasks.withType(JavaCompile) {
+        options.compilerArgs = [
+                "-Xlint:deprecation",
+                "-Xlint:unchecked",
+                "-parameters",
+        ]
+    }
+
+    jacocoTestReport {
+        dependsOn test
+        reports {
+            xml.enabled true
+        }
+    }
+}
+
+tasks.named('sonarqube').configure {
+    dependsOn test
+}
+

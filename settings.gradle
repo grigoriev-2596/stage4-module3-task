@@ -1,0 +1,12 @@
+pluginManagement {
+    plugins {
+        id 'org.springframework.boot' version springBootPluginVersion
+        id 'io.spring.dependency-management' version springBootDependencyManagementVersion
+    }
+}
+
+rootProject.name = 'stage4-module3-task'
+
+include 'module-repository'
+include 'module-service'
+include 'module-web'

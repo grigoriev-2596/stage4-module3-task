@@ -1,0 +1,21 @@
+plugins {
+    id 'java-library'
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    implementation "org.flywaydb:flyway-core:$flywayVersion"
+    runtimeOnly "org.postgresql:postgresql:$postgresVersion"
+    runtimeOnly 'com.h2database:h2'
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
